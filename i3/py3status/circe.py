@@ -1,5 +1,10 @@
-import os
+"""This is a custom module to work with circe mode in emacs. It shows
+the channels that have unread messages
 
+Author: Yilun Guan
+"""
+
+import os
 
 NCHAR = 3
 CMD = 'emacsclient --eval \"(mapcar \'message tracking-buffers)\"'
@@ -7,7 +12,7 @@ CMD = 'emacsclient --eval \"(mapcar \'message tracking-buffers)\"'
 def get_channels(res):
     """Get channels from the system pipe response"""
     return [c.strip('"') for c in res.rstrip().strip('()').split(' ')]
-n
+
 class Py3status:
 
     def circe(self):
