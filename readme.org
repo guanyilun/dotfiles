@@ -3,13 +3,19 @@
 This (will be) my collection of dotfiles. 
 
 ** Installation
-- cook (used to install all other dependencies)
+- Clone the repository
+  #+BEGIN_SRC bash
+    git clone https://github.com/guanyilun/dotfiles ~/dotfiles
+  #+END_SRC
+
+- =cook= (used to install all other dependencies)
   #+BEGIN_SRC bash
   pip install pycook
   #+END_SRC
 
 - Install
   #+BEGIN_SRC bash
+    cd dotfiles
     cook install_dep
     cook install
   #+END_SRC
