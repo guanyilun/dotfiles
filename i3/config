@@ -16,7 +16,7 @@ exec_always --no-startup-id feh --bg-fill $HOME/dotfiles/wallpapers/kali.png
 # Global key
 set $mod Mod1
 
-set $term i3-sensible-terminal
+set $term --no-startup-id i3-sensible-terminal
 ## statusbar definition
 #bar {
 #   status_command py3status --include $HOME/.config/i3/py3status
@@ -35,9 +35,9 @@ set $term i3-sensible-terminal
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+backslash split horizontal ;; exec i3-sensible-terminal
-bindsym $mod+slash split vertical ;; exec i3-sensible-terminal
+bindsym $mod+Return exec $term
+bindsym $mod+backslash split horizontal ;; exec $term
+bindsym $mod+slash split vertical ;; exec $term
 
 # kill focused window
 # Shift version will be obsolete soon
@@ -54,6 +54,7 @@ bindsym $mod+d exec dmenu_run
 bindsym $mod+t          split toggle
 bindsym $mod+Shift+t    gaps inner current set 10; gaps outer current set 10
 bindsym $mod+i 			exec $term -e htop
+bindsym $mod+r 			exec $term -e ranger
 
 # i3 uses jkl; instead of hjkl -- fix that
 bindsym $mod+h focus left
@@ -189,7 +190,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+# bindsym $mod+r mode "resize"
 
 # startup app
 exec_always --no-startup-id ~/.config/polybar/polybar.sh &
@@ -200,6 +201,7 @@ exec --no-startup-id dropbox start
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id xmodmap ~/.xmodmaprc.pc
+# exec --no-startup-id emacs
 
 # for transparency
 # exec --no-startup-id compton
@@ -211,4 +213,3 @@ bindsym $mod+m exec emacsclient -c
 bindsym $mod+c exec chromium-browser
 bindsym $mod+Shift+m exec mendeleydesktop
 bindsym $mod+Shift+w exec wewechat
-
