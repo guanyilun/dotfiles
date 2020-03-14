@@ -28,9 +28,8 @@ white = ${xrdb:color15:#ebdbb2}
 background = ${xrdb:color256:#1d2021}
 foreground = ${xrdb:color257:#ebdbb2}
 
-[bar/default]
-;monitor = ${env:MONITOR:LVDS-1}
-;monitor = ${env:MONITOR:HDMI-1}
+[bar/top]
+monitor = ${env:MONITOR:LVDS-1}
 enable-ipc = true
 width = 100%
 height = 24
@@ -52,7 +51,7 @@ padding-left = 0
 padding-right = 0
 
 module-margin-left = 1
-module-margin-right = 1
+module-margin-right = 0
 
 font-0 = mono:pixelsize=9;1
 font-1 = Inconsolata Nerd Font:size=8;1
@@ -64,7 +63,7 @@ font-3 =polybar wm-restack Symbola:pixelsize=9;1
 ; modules-left = bspwm xwindow
 modules-left = i3 xwindow
 ;modules-center =
-modules-right = volume weather filesystem wlan eth battery date
+modules-right = volume weather polypomo covid filesystem wlan battery date
 tray-position = right
 tray-padding = 0
 
@@ -76,13 +75,37 @@ scroll-down = i3wm-wsprev
 
 [module/weather]
 type = custom/script
-exec = weather
+exec = ~/.config/polybar/polybar-scripts/weather
 interval = 5000
 ;format-underline =
 
+[module/info-hackspeed]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/info-hackspeed/info-hackspeed.sh
+tail = true
+
+[module/polypomo]
+type = custom/script
+
+exec = ~/dotfiles/polybar/polybar-scripts/polypomo
+tail = true
+
+label = %output%
+click-left = ~/dotfiles/polybar/polybar-scripts/polypomo toggle
+click-right = ~/dotfiles/polybar/polybar-scripts/polypomo end
+click-middle = ~/dotfiles/polybar/polybar-scripts/polypomo lock
+scroll-up = ~/dotfiles/polybar/polybar-scripts/polypomo time +60
+scroll-down = ~/dotfiles/polybar/polybar-scripts/polypomo time -60
+
+[module/covid]
+type = custom/script
+exec = ~/dotfiles/polybar/covid_us
+click-left = chromium-browser --app https://coronavirus.1point3acres.com/en
+interval = 1800
+
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:20:...%
 format-foreground = ${colors.blue}
 
 [module/xkeyboard]
@@ -331,7 +354,7 @@ interval = 60
 date = "%Y %b %d (%a)"
 time = "%I:%M%p"
 
-# If you're not living in a country where AM and PM is used you can add -alt to the time above this line and comment it using ;, then you can remove the -alt to the time under this line and uncomment it.
+; If you're not living in a country where AM and PM is used you can add -alt to the time above this line and comment it using ;, then you can remove the -alt to the time under this line and uncomment it.
 ;time-alt = " at %H:%M"
 ;time-alt = %H:%M:%S
 ;time-alt = %H:%M:%S
