@@ -1,4 +1,28 @@
 # i3 config file (v4)
+## start up programs
+exec --no-startup-id fcitx5
+exec --no-startup-id xmodmap ~/.xmodmaprc
+exec --no-startup-id dropbox
+exec --no-startup-id xfce4-clipman
+exec --no-startup-id udiskie
+# exec --no-startup-id megasync
+
+## shut down behavior
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# bindsym $mod+Pause mode "$mode_system"
+bindsym $mod+Shift+e mode "$mode_system"
 
 ## General Definitions
 # Visual
@@ -11,12 +35,14 @@ gaps outer 5
 font pango:monospace 8
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-fill $HOME/dotfiles/wallpapers/kali.png
+exec_always --no-startup-id feh --bg-fill $HOME/Pictures/Wallpapers/arch2.png
 
 # Global key
 set $mod Mod1
 
-set $term --no-startup-id i3-sensible-terminal
+set $term --no-startup-id konsole
+set $term2 --no-startup-id i3-sensible-terminal
+# set $term --no-startup-id alacritty
 ## statusbar definition
 #bar {
 #   status_command py3status --include $HOME/.config/i3/py3status
@@ -35,7 +61,8 @@ set $term --no-startup-id i3-sensible-terminal
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec $term2
+# bindsym $mod+Shift+Return exec $term2
 bindsym $mod+backslash split horizontal ;; exec $term
 bindsym $mod+slash split vertical ;; exec $term
 
@@ -151,7 +178,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec prompt 'Exit i3?' 'i3-msg exit'
+# bindsym $mod+Shift+e exec ~/.dotfiles/bin/prompt 'Exit i3?' 'i3-msg exit'
 
 # user configuration
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 3+ unmute"
@@ -159,6 +186,9 @@ bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 3- unmute"
 bindsym $mod+XF86AudioRaiseVolume exec "amixer -q sset Master,0 10+ unmute"
 bindsym $mod+XF86AudioLowerVolume exec "amixer -q sset Master,0 10- unmute"
 bindsym XF86AudioMute exec "amixer -q -D pulse sset Master toggle"
+# sreen brightness controls
+bindsym XF86MonBrightnessUp exec "brightnessctl s +10%"
+bindsym XF86MonBrightnessDown exec "brightnessctl s 10%-"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -190,17 +220,22 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# bindsym $mod+r mode "resize"
+bindsym $mod+y mode "resize"
 
 # startup app
-exec_always --no-startup-id ~/.config/polybar/polybar.sh &
+# exec_always --no-startup-id ~/.config/polybar/polybar.sh &
+bar {
+        status_command i3status
+}
 
 exec --no-startup-id synapse
-exec --no-startup-id mathpix-snipping-tool
-exec --no-startup-id dropbox start
+exec --no-startup-id deadd-notification-center
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec --no-startup-id xmodmap ~/.xmodmaprc.pc
+exec --no-startup-id kmix
+# exec --no-startup-id xfce4-clipman
+# exec --no-startup-id flameshot
+# exec --no-startup-id mathpix-snipping-tool
+# exec --no-startup-id ~/.dropbox-dist/dropboxd
 # exec --no-startup-id emacs
 
 # for transparency
@@ -210,6 +245,7 @@ bindsym $mod+greater move workspace to output right
 bindsym $mod+less move workspace to output left
 
 bindsym $mod+m exec emacsclient -c
-bindsym $mod+c exec chromium-browser
-bindsym $mod+Shift+m exec mendeleydesktop
-bindsym $mod+Shift+w exec wewechat
+bindsym $mod+c exec chromium
+bindsym $mod+Shift+v exec deepin-screen-recorder
+# bindsym $mod+Shift+m exec mendeleydesktop
+# bindsym $mod+Shift+w exec wewechat
